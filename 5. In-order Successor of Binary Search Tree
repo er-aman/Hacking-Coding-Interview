@@ -1,0 +1,49 @@
+The in-order successor of a node in a binary Search Tree (BST) is the next node in in-order traversal.
+Write a method to find the in-order successor of a given value “d” in a BST.
+
+
+//1st thing is I will keep a successor variable and i'll update it only if i go to the left handside of the node
+//else I will not update my successor 
+
+and if the number we reached is == d and it does have right child then the successor has to be the leftmost child of that node.
+
+// defining how to get the minimum that is left most node of the tree or subtree given a root node
+
+def get_min(root):
+  if not root:
+    return None 
+  while root.left !=None:
+    root = root.left
+  return root
+  
+def inorder_successor_bst(root,d):
+  if not root:
+    return None
+  successor = None 
+  while root:
+    if d<root.data:
+      successor = root
+      root = root.left
+    elif d> root.data:
+      root = root.right
+    else:
+      if root.right:
+        successor = get_min(root.right)
+      break
+  return successor
+
+Runtime complexity #
+The runtime complexity of this solution is logarithmic, O(logn).
+
+Memory complexity #
+The memory complexity of this solution is constant, O(1).
+
+
+Find the value dd in BST.
+
+If dd has a right child then the left most child in right child’s subtree will be the in-order successor of dd. This would also be the child with the minimum value in that subtree.
+
+If dd has no right child then:
+
+in-order successor is NULL if dd is right most node in the BST i.e. last node in the in-order traversal.
+in-order successor is the node with minimum value higher than dd in the parent chain of d.
